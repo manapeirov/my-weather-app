@@ -1,85 +1,99 @@
-import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
-import moment from 'moment'
-import { fetchCityAddedWeatherData } from '../reducers/MultipleCitiesReducer'
+import React, { useState } from "react"
+import { connect } from "react-redux"
+import { fetchCityAddedWeatherData } from "../reducers/MultipleCitiesReducer"
 
+const AddCityForm = ({
+  loading,
+  hasErrors,
+  weatherData,
+  dispatch,
+  success,
+  setShowButton,
+  setShowForm,
+}) => {
+  const [city, setCity] = useState({ name: "" })
+  const [previousCity, setPreviousCity] = useState({ name: "" })
+  const [displayResult, setDisplayResult] = useState(false)
 
+  const handleFieldChange = (event) => {
+    setCity({ name: event.target.value })
+    setPreviousCity({ name: event.target.value })
+    setDisplayResult(false)
+    console.log(city)
+  }
 
-const AddCityForm = ({ loading, hasErrors, weatherData, dispatch, setShowButton, setShowForm }) => {
-
-
-    const [city, setCity] = useState({name: ''})
-
-    const handleFieldChange = event => {
-        setCity({ name: event.target.value })
-        console.log(city)
+  const keyDown = (event) => {
+    if (event.key === "Enter") {
+      handleSubmit()
     }
+  }
 
-       
-    const handleSubmit = (event) => {
-            dispatch(fetchCityAddedWeatherData(city.name))
-            setCity({name: ''})
-            console.log(weatherData)
-            // setShowButton(true)
-            // setShowForm(false)
-       }
-       
+  const handleSubmit = (event) => {
+    dispatch(fetchCityAddedWeatherData(city.name))
+    setCity({ name: "" })
+    setDisplayResult(true)
+    console.log(weatherData)
+    // setShowButton(true)
+  }
 
-    // const handleSubmit = (event, { dispatch }) => {
-        
-    //     event.preventDefault()
-    //     dispatch(fetchCityAddedWeatherData(city))
-
-    //     setShowForm(false)
-
-    //     setShowButton(true)
-
-    //     if (loading) return <p>Validating city name...</p>  
-
-    //     if (hasErrors) return <p>Unable to add city, check the city name entered and try again.</p>
-
-    //     return <p>City successfully added</p>
-        
-
-    //     // onAddCity(weather)
-
-    // }
-
-    const renderResults = () => {
-        if(loading) return <p>Searching...</p>
-        if(hasErrors) return <p>Unable to find city, please try again</p>
-        if(city.name) return <p>{city.name} has been added</p>
-    }
-
-    return (
+  const renderResults = () => {
+    if (loading)
+      return (
         <section>
-            <form >
-                    <label>City</label>
-                    <input type='text' name='city' value={city.name} onChange={handleFieldChange}/>
-                <input
-                    type="button"
-                    value="Submit"
-                    onClick={handleSubmit}
-                    className='button'/>
-            </form>
-            {renderResults()}
+          <p style={{ textAlign: "center", marginTop: "2rem" }}>Searching...</p>
         </section>
+      )
+    if (hasErrors)
+      return (
+        <section>
+          <p style={{ textAlign: "center", marginTop: "2rem" }}>
+            Unable to find city, please try again
+          </p>
+        </section>
+      )
+    if (success && displayResult)
+      return (
+        <section>
+          <p style={{ textAlign: "center", marginTop: "2rem" }}>
+            {previousCity.name} has been added
+          </p>
+        </section>
+      )
+  }
 
-    )
-
+  return (
+    <section>
+      <form
+        onSubmit={(event) => {
+          event.preventDefault()
+        }}
+      >
+        <label>City</label>
+        <input
+          type="text"
+          name="city"
+          value={city.name}
+          placeholder="Enter City Name"
+          onChange={handleFieldChange}
+          onKeyDown={keyDown}
+        />
+        <input
+          type="button"
+          value="Submit"
+          onClick={handleSubmit}
+          className="button"
+        />
+      </form>
+      {renderResults()}
+    </section>
+  )
 }
 
-
-const mapStateToProps = state => ({
-    weatherData: state.weatherForCities.weatherData,
-    loading: state.weatherForCities.loadingUserCity,
-    hasErrors: state.weatherForCities.userCityHasErrors
+const mapStateToProps = (state) => ({
+  weatherData: state.weatherForCities.weatherData,
+  loading: state.weatherForCities.loadingUserCity,
+  hasErrors: state.weatherForCities.userCityHasErrors,
+  success: state.weatherForCities.success,
 })
 
-
-
 export default connect(mapStateToProps)(AddCityForm)
-
-
-
-

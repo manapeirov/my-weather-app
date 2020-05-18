@@ -8,8 +8,6 @@ const AddCityForm = ({
   weatherData,
   dispatch,
   success,
-  setShowButton,
-  setShowForm,
 }) => {
   const [city, setCity] = useState({ name: "" })
   const [previousCity, setPreviousCity] = useState({ name: "" })
@@ -19,7 +17,7 @@ const AddCityForm = ({
     setCity({ name: event.target.value })
     setPreviousCity({ name: event.target.value })
     setDisplayResult(false)
-    console.log(city)
+    // console.log(city)
   }
 
   const keyDown = (event) => {
@@ -32,8 +30,7 @@ const AddCityForm = ({
     dispatch(fetchCityAddedWeatherData(city.name))
     setCity({ name: "" })
     setDisplayResult(true)
-    console.log(weatherData)
-    // setShowButton(true)
+    // console.log(weatherData)
   }
 
   const renderResults = () => {

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { connect } from "react-redux"
-import CityWeather from "../components/CityWeather"
 
+import CityWeather from "../components/CityWeather"
 import { fetchCityWeatherData } from "../reducers/OneCityReducer"
 
 const SingleCityWeatherPage = ({
@@ -16,18 +16,12 @@ const SingleCityWeatherPage = ({
     dispatch(fetchCityWeatherData(id))
   }, [dispatch, match])
 
-  console.log(weatherData)
+  //   console.log(weatherData)
 
   const renderSingleCityWeather = () => {
     if (loading) return <p>Loading Weather...</p>
     if (hasErrors) return <p>Unable to display weather</p>
-    return (
-      <CityWeather
-        key={weatherData.id}
-        cityWeatherData={weatherData}
-        singleCity
-      />
-    )
+    return <CityWeather key={weatherData.id} cityWeatherData={weatherData} />
   }
 
   return <div>{renderSingleCityWeather()}</div>

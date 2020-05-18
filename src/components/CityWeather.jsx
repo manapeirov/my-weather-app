@@ -1,14 +1,14 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
-export const CityWeather = ({ cityWeatherData, dashboard, singleCity }) => {
+export const CityWeather = ({ cityWeatherData, dashboard }) => {
   // console.log('city in card', cityWeatherData)
   const data = cityWeatherData
   return (
     <div className="card">
       <h2>{cityWeatherData.city}</h2>
 
-      {singleCity ? (
+      {!dashboard ? (
         <p>
           <h3>Weather Summary</h3>
           {data.description} <br />

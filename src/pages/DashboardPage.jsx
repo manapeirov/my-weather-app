@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { connect } from "react-redux"
-import CityWeather from "../components/CityWeather"
+import logo from "../assets/myWeatherAppLogo.png"
 
 import { fetchCitiesWeatherData } from "../reducers/MultipleCitiesReducer"
+import CityWeather from "../components/CityWeather"
 import AddCityForm from "../components/AddCityForm"
 
-const DashboardPage = ({
-  weatherData,
-  dashboard,
-  dispatch,
-  loading,
-  hasErrors,
-}) => {
+const DashboardPage = ({ weatherData, dispatch, loading, hasErrors }) => {
   const [showForm, setShowForm] = useState(false)
   const [showButton, setShowButton] = useState(true)
 
@@ -22,7 +17,7 @@ const DashboardPage = ({
   const renderWeather = () => {
     if (loading) return <p>Loading Cities...</p>
     if (hasErrors) return <p>Unable to display weather</p>
-    console.log("All cities on Dashboard page", weatherData)
+    // console.log("All cities on Dashboard page", weatherData)
     return (
       <div className="container">
         {weatherData &&
@@ -44,7 +39,7 @@ const DashboardPage = ({
 
   return (
     <div>
-      <h1>UK Weather App</h1>
+      <img src={logo} alt="logo" />
       {showButton && (
         <section>
           <button className="addCity" onClick={handleClick}>
@@ -54,8 +49,8 @@ const DashboardPage = ({
       )}
       {showForm && (
         <AddCityForm
-          setShowButton={(p) => setShowButton(p)}
-          setShowForm={(p) => setShowForm(p)}
+        //   setShowButton={(p) => setShowButton(p)}
+        //   setShowForm={(p) => setShowForm(p)}
         />
       )}
       {renderWeather()}

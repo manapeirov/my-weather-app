@@ -4,10 +4,12 @@ import { NavLink } from "react-router-dom"
 const NavBar = () => {
   return (
     <nav>
-      <NavLink to="/" activeStyle={{ color: "#fbc2eb" }} exact>
-        Home
-      </NavLink>
-      {/* {" | "} */}
+      <section>
+        <NavLink to="/" activeStyle={{ color: "#fbc2eb" }} exact>
+          Home
+        </NavLink>
+        {/* {" | "} */}
+      </section>
     </nav>
   )
 }

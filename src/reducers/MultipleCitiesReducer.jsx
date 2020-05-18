@@ -37,12 +37,8 @@ export const initialState = {
       humidity: "45%",
     },
   ],
-
-  oneCityWeatherData: {},
-
   loading: false,
   hasErrors: false,
-  dashboard: true,
   loadingUserCity: false,
   userCityHasErrors: false,
   success: false,
@@ -67,6 +63,7 @@ export default function MultipleCitiesReducer(state = initialState, action) {
       return {
         ...state,
         weatherData: [action.payload, ...state.weatherData],
+        userCityHasErrors: false,
         loadingUserCity: false,
         success: true,
       }
@@ -81,8 +78,7 @@ export const fetchCitiesWeatherData = () => {
   return async (dispatch) => {
     dispatch({ type: "GET_CITIES_WEATHER" })
     try {
-      const response = await // fetch (`http://api.openweathermap.org/data/2.5/box/city?bbox=12,32,15,37,10&appid=555fb79c6e515cbe4270109ac03e2ffb`)
-      fetch(
+      const response = await fetch(
         `http://api.openweathermap.org/data/2.5/box/city?bbox=-4,50,1,55,7&appid=555fb79c6e515cbe4270109ac03e2ffb`
       )
       const data = await response.json()
@@ -91,8 +87,8 @@ export const fetchCitiesWeatherData = () => {
       const payload = data.list.map((d) => ({
         id: d.id,
         city: d.name,
-        currentTemp: `${(d.main.temp / 10).toFixed(1)} °C`,
-        lowTemp: `${(d.main.temp_min / 10).toFixed(1)} °C`,
+        currentTemp: `${d.main.temp.toFixed(1)} °C`,
+        lowTemp: `${d.main.temp_min.toFixed(1)} °C`,
         humidity: `${d.main.humidity} %`,
       }))
 
@@ -113,7 +109,7 @@ export const fetchCityAddedWeatherData = (cityName) => {
       )
       const data = await response.json()
 
-      console.log("fetch user city weather", data)
+      //   console.log("fetch user city weather", data)
 
       const payload = {
         id: data.id,
@@ -123,7 +119,7 @@ export const fetchCityAddedWeatherData = (cityName) => {
         humidity: `${data.main.humidity} %`,
       }
 
-      console.log("user city payload", payload)
+      //   console.log("user city payload", payload)
 
       dispatch({ type: "GET_USER_CITY_SUCCESS", payload })
     } catch (error) {

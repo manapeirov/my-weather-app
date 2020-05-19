@@ -12,11 +12,13 @@ const AddCityForm = ({
   const [city, setCity] = useState({ name: "" })
   const [previousCity, setPreviousCity] = useState({ name: "" })
   const [displayResult, setDisplayResult] = useState(false)
+  const [isDuplicate, setIsDuplicate] = useState(false)
 
   const handleFieldChange = (event) => {
     setCity({ name: event.target.value })
     setPreviousCity({ name: event.target.value })
     setDisplayResult(false)
+    setIsDuplicate(false)
     // console.log(city)
   }
 
@@ -27,9 +29,17 @@ const AddCityForm = ({
   }
 
   const handleSubmit = (event) => {
-    dispatch(fetchCityAddedWeatherData(city.name))
+    if (
+      weatherData.filter(
+        (entry) => entry.city.toLowerCase() === city.name.toLowerCase()
+      ).length === 0
+    ) {
+      dispatch(fetchCityAddedWeatherData(city.name))
+      setDisplayResult(true)
+    } else {
+      setIsDuplicate(true)
+    }
     setCity({ name: "" })
-    setDisplayResult(true)
     // console.log(weatherData)
   }
 
@@ -37,23 +47,30 @@ const AddCityForm = ({
     if (loading)
       return (
         <section>
-          <p style={{ textAlign: "center", marginTop: "2rem" }}>Searching...</p>
+          <p className="searchResults">Searching...</p>
         </section>
       )
     if (hasErrors)
       return (
         <section>
-          <p style={{ textAlign: "center", marginTop: "2rem" }}>
-            Unable to find city, please try again
+          <p className="searchResults">
+            Unable to find the city {previousCity.name}, please try again
           </p>
         </section>
       )
+    if (isDuplicate) {
+      return (
+        <section>
+          <p className="searchResults">
+            {previousCity.name} is already on the list!
+          </p>
+        </section>
+      )
+    }
     if (success && displayResult)
       return (
         <section>
-          <p style={{ textAlign: "center", marginTop: "2rem" }}>
-            {previousCity.name} has been added
-          </p>
+          <p className="searchResults">{weatherData[0].city} has been added</p>
         </section>
       )
   }
@@ -78,7 +95,7 @@ const AddCityForm = ({
           type="button"
           value="Submit"
           onClick={handleSubmit}
-          className="button"
+          className="submitCity"
         />
       </form>
       {renderResults()}

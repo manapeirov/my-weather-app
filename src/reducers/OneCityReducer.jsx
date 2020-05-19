@@ -43,7 +43,8 @@ export function fetchCityWeatherData(cityID) {
       console.log(`data fetched`, data)
 
       const payload = {
-        description: data.weather[0].description,
+        detailedDescription: data.weather[0].description,
+        description: data.weather[0].main,
         city: data.name,
         currentTemp: `${(data.main.temp / 10).toFixed(1)} °C`,
         lowTemp: `${(data.main.temp_min / 10).toFixed(1)} °C`,

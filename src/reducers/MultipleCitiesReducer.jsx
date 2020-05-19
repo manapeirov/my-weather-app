@@ -83,9 +83,10 @@ export const fetchCitiesWeatherData = () => {
       )
       const data = await response.json()
 
-      // console.log('fetch', data)
+      console.log("fetch", data)
       const payload = data.list.map((d) => ({
         id: d.id,
+        description: d.weather[0].main,
         city: d.name,
         currentTemp: `${d.main.temp.toFixed(1)} °C`,
         lowTemp: `${d.main.temp_min.toFixed(1)} °C`,
@@ -113,6 +114,7 @@ export const fetchCityAddedWeatherData = (cityName) => {
 
       const payload = {
         id: data.id,
+        description: data.weather[0].main,
         city: `${data.name}`,
         currentTemp: `${(data.main.temp / 10).toFixed(1)} °C`,
         lowTemp: `${(data.main.temp_min / 10).toFixed(1)} °C`,

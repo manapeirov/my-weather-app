@@ -79,15 +79,17 @@ section h1 {
   font-size: 3rem;
 }
 
-.button {
+.submitCity {
   display: block;
   margin: 0 auto;
+  margin-top: 1rem;
   background: #a6c1ee;
+  border: 0;
   color: white;
-  border-radius: 4px;
   font-weight: 700;
-  padding: 0.75rem 1.5rem;
   text-align: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
 }
 
 button {
@@ -99,6 +101,52 @@ button {
   font-weight: 700;
   padding: 0.75rem 1.5rem;
   text-align: center;
+}
+
+.weatherDetails {
+  display: block;
+  margin: 0 auto;
+  margin-top: 1rem;
+  background: #a6c1ee;
+  border: 0;
+  color: white;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+}
+
+.submitCity:hover {
+  box-shadow: 2px 8px 10px #8fd3f4;
+  transform: translate3D(0, -2px, 0);
+}
+
+.addCity {
+  display: block;
+  margin: 0 auto;
+  margin-top: 1rem;
+  background: #a6c1ee;
+  border: 0;
+  color: white;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+}
+
+.addCity:hover {
+  box-shadow: 2px 8px 10px #8fd3f4;
+  transform: translate3D(0, -2px, 0);
+}
+
+.addCity:active {
+  outline: none !important;
+}
+
+.submitCity:active,
+.submitCity:focus {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 h2 {
@@ -119,10 +167,60 @@ h1 {
   color: white;
 }
 
+/* .icon {
+  display: inline-block;
+} */
+
 img {
   display: block;
   margin: auto;
   max-width: 100%;
+}
+
+.weatherIcon {
+  width: 100px;
+  height: 100px;
+  display: block;
+}
+
+.cityIcon {
+  width: 40px;
+  height: 40px;
+  margin: -10px 0;
+}
+
+.currentTempIcon {
+  width: 30px;
+  height: 25px;
+  margin-left: 1px;
+  margin-right: 1px;
+  margin-bottom: 2px;
+}
+
+.currentTemp {
+  display: flex;
+}
+
+.lowTempIcon {
+  width: 25px;
+  height: 25px;
+  margin-left: 2px;
+  margin-right: 1px;
+  margin-bottom: 2px;
+}
+
+.lowTemp {
+  display: flex;
+}
+
+.cityNameHeader {
+  display: flex;
+  justify-content: center;
+}
+
+.searchResults {
+  text-align: center;
+  margin-top: 2rem;
 }
 
 p {
@@ -226,7 +324,7 @@ select:focus,
 select:active,
 textarea:focus,
 textarea:active {
-  border: 1px solid #0366ee;
+  border: 1px solid #a6c1ee;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 6px #8cbcfe;
 }
 

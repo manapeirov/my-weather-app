@@ -54,7 +54,7 @@ const AddCityForm = ({
       return (
         <section>
           <p className="searchResults">
-            Unable to find the city '{previousCity.name}', please try again
+            Unable to find the city '{previousCity.name}', please try again.
           </p>
         </section>
       )
@@ -62,7 +62,9 @@ const AddCityForm = ({
       return (
         <section>
           <p className="searchResults">
-            {previousCity.name} is already on the list!
+            {previousCity.name.charAt(0).toUpperCase() +
+              previousCity.name.slice(1)}{" "}
+            is already on the list!
           </p>
         </section>
       )
@@ -70,7 +72,7 @@ const AddCityForm = ({
     if (success && displayResult)
       return (
         <section>
-          <p className="searchResults">{weatherData[0].city} has been added</p>
+          <p className="searchResults">{weatherData[0].city} has been added.</p>
         </section>
       )
   }

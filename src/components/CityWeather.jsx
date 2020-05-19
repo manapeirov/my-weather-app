@@ -33,10 +33,10 @@ export const CityWeather = ({ cityWeatherData, dashboard }) => {
         <img src={cityIcon} alt="city" className="cityIcon" />
       </h2>
       {!dashboard ? (
-        <p>
+        <p style={{ textAlign: "center" }}>
           <h3>Weather Summary</h3>
           {renderIcons()}
-          {data.detailedDescription} <br />
+          <h4>{data.detailedDescription}</h4>
           <div className="currentTemp">
             <div>Current Temp</div>
             <img
@@ -59,7 +59,7 @@ export const CityWeather = ({ cityWeatherData, dashboard }) => {
           Sunset: {data.sunset} <br />
         </p>
       ) : (
-        <p>
+        <p style={{ textAlign: "center" }}>
           <h3>Weather Summary</h3>
           {renderIcons()}
           <div className="currentTemp">

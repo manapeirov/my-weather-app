@@ -50,11 +50,11 @@ const AddCityForm = ({
           <p className="searchResults">Searching...</p>
         </section>
       )
-    if (hasErrors)
+    if (hasErrors && displayResult)
       return (
         <section>
           <p className="searchResults">
-            Unable to find the city {previousCity.name}, please try again
+            Unable to find the city '{previousCity.name}', please try again
           </p>
         </section>
       )

@@ -1,13 +1,16 @@
-import React, { useState } from "react"
+import React from "react"
 import { Link } from "react-router-dom"
 
-import cityIcon from "../assets/mana_city_icon.png"
+import cityIcon from "../assets/Mana_city_icon.png"
 import cTempIcon from "../assets/Mana_current_temp_icon.png"
 import lTempIcon from "../assets/Mana_lowest_temp_icon.png"
 import cloudIcon from "../assets/Mana_cloudy_icon.png"
 import rainIcon from "../assets/Mana_raining_icon.png"
 import snowIcon from "../assets/Mana_snow_icon.png"
 import sunIcon from "../assets/Mana_sun_icon.png"
+import humidIcon from "../assets/Mana_humid_icon.png"
+import sunriseIcon from "../assets/Mana_sunrise_icon.png"
+import sunsetIcon from "../assets/Mana_sunset_icon.png"
 
 export const CityWeather = ({ cityWeatherData, dashboard }) => {
   // console.log('city in card', cityWeatherData)
@@ -26,6 +29,14 @@ export const CityWeather = ({ cityWeatherData, dashboard }) => {
       return <img src={sunIcon} alt="Sun Icon" className="weatherIcon" />
   }
 
+  const renderDescription = () => {
+    const splitString = data.detailedDescription.split(" ")
+    const descriptionWordsFixed = splitString.map(
+      (word) => word.charAt(0).toUpperCase() + word.slice(1)
+    )
+    return descriptionWordsFixed.join(" ")
+  }
+
   return (
     <div className="card">
       <h2 className="cityNameHeader">
@@ -36,7 +47,7 @@ export const CityWeather = ({ cityWeatherData, dashboard }) => {
         <p style={{ textAlign: "center" }}>
           <h3>Weather Summary</h3>
           {renderIcons()}
-          <h4>{data.detailedDescription}</h4>
+          <h4>{data && renderDescription()}</h4>
           <div className="currentTemp">
             <div>Current Temp</div>
             <img
@@ -54,9 +65,24 @@ export const CityWeather = ({ cityWeatherData, dashboard }) => {
               className="lowTempIcon"
             />: {data.lowTemp} <br />
           </div>
-          Humidity: {data.humidity} <br />
-          Sunrise: {data.sunrise} <br />
-          Sunset: {data.sunset} <br />
+          <div className="humidity">
+            <div>Humidity</div>
+            <img src={humidIcon} alt="Humidity Icon" className="humidityIcon" />
+            : {data.humidity} <br />
+          </div>
+          <div className="sunrise">
+            <div>Sunrise</div>
+            <img src={sunriseIcon} alt="Sunrise Icon" className="sunriseIcon" />
+            : {data.sunrise} <br />
+          </div>
+          <div className="sunset">
+            <div>Sunset</div>
+            <img
+              src={sunsetIcon}
+              alt="Sunset Icon"
+              className="sunsetIcon"
+            />: {data.sunset} <br />
+          </div>
         </p>
       ) : (
         <p style={{ textAlign: "center" }}>
@@ -79,7 +105,11 @@ export const CityWeather = ({ cityWeatherData, dashboard }) => {
               className="lowTempIcon"
             />: {data.lowTemp} <br />
           </div>
-          Humidity: {data.humidity} <br />
+          <div className="humidity">
+            <div>Humidity</div>
+            <img src={humidIcon} alt="Humidity Icon" className="humidityIcon" />
+            : {data.humidity} <br />
+          </div>
         </p>
       )}
       {dashboard && (
